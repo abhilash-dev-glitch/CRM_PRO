@@ -1,0 +1,1241 @@
+{
+  "info": {
+    "_postman_id": "crm-api-collection",
+    "name": "CRM API - Bulk Test Data",
+    "description": "Collection for testing CRM Backend API endpoints with comprehensive bulk test data",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Register Admin",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code === 200) {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.environment.set(\"admin_token\", jsonData.token);",
+                  "    pm.test(\"Admin token saved\", function() {",
+                  "        pm.expect(jsonData.token).to.exist;",
+                  "    });",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Admin User\",\n  \"email\": \"admin@crm.com\",\n  \"password\": \"admin123\",\n  \"role\": \"admin\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:5000/api/auth/register",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "auth", "register"]
+            }
+          }
+        },
+        {
+          "name": "Register Salesperson 1",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code === 200) {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.environment.set(\"token\", jsonData.token);",
+                  "    pm.test(\"User token saved\", function() {",
+                  "        pm.expect(jsonData.token).to.exist;",
+                  "    });",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Sarah Johnson\",\n  \"email\": \"sarah@crm.com\",\n  \"password\": \"user123\",\n  \"role\": \"user\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:5000/api/auth/register",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "auth", "register"]
+            }
+          }
+        },
+        {
+          "name": "Register Salesperson 2",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Mike Wilson\",\n  \"email\": \"mike@crm.com\",\n  \"password\": \"user123\",\n  \"role\": \"user\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:5000/api/auth/register",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "auth", "register"]
+            }
+          }
+        },
+        {
+          "name": "Login Admin",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code === 200) {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.environment.set(\"admin_token\", jsonData.token);",
+                  "    pm.test(\"Admin logged in successfully\", function() {",
+                  "        pm.expect(jsonData.token).to.exist;",
+                  "    });",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"admin@crm.com\",\n  \"password\": \"admin123\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:5000/api/auth/login",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "auth", "login"]
+            }
+          }
+        },
+        {
+          "name": "Login User",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code === 200) {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.environment.set(\"token\", jsonData.token);",
+                  "    pm.test(\"User logged in successfully\", function() {",
+                  "        pm.expect(jsonData.token).to.exist;",
+                  "    });",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"sarah@crm.com\",\n  \"password\": \"user123\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:5000/api/auth/login",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "auth", "login"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Customers",
+      "item": [
+        {
+          "name": "Get All Customers",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "x-auth-token",
+                "value": "{{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:5000/api/customers",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "customers"]
+            }
+          }
+        },
+        {
+          "name": "Create Customer - TechCorp",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code === 201) {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.environment.set(\"customerId\", jsonData._id);",
+                  "    pm.test(\"Customer created successfully\", function() {",
+                  "        pm.expect(jsonData._id).to.exist;",
+                  "    });",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "x-auth-token",
+                "value": "{{token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"TechCorp Solutions\",\n  \"email\": \"contact@techcorp.com\",\n  \"phone\": \"(555) 123-4567\",\n  \"company\": \"TechCorp Solutions Inc\",\n  \"address\": \"123 Tech Avenue, San Francisco, CA 94105\",\n  \"city\": \"San Francisco\",\n  \"state\": \"CA\",\n  \"zipcode\": \"94105\",\n  \"country\": \"USA\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:5000/api/customers",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "customers"]
+            }
+          }
+        },
+        {
+          "name": "Create Customer - Acme Corp",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "x-auth-token",
+                "value": "{{token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Acme Corporation\",\n  \"email\": \"sales@acme.com\",\n  \"phone\": \"(555) 234-5678\",\n  \"company\": \"Acme Corp Ltd\",\n  \"address\": \"456 Business Blvd, New York, NY 10001\",\n  \"city\": \"New York\",\n  \"state\": \"NY\",\n  \"zipcode\": \"10001\",\n  \"country\": \"USA\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:5000/api/customers",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "customers"]
+            }
+          }
+        },
+        {
+          "name": "Create Customer - Global Industries",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "x-auth-token",
+                "value": "{{token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Global Industries\",\n  \"email\": \"info@globalind.com\",\n  \"phone\": \"(555) 345-6789\",\n  \"company\": \"Global Industries Ltd\",\n  \"address\": \"789 Enterprise Way, Chicago, IL 60601\",\n  \"city\": \"Chicago\",\n  \"state\": \"IL\",\n  \"zipcode\": \"60601\",\n  \"country\": \"USA\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:5000/api/customers",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "customers"]
+            }
+          }
+        },
+        {
+          "name": "Create Customer - NextGen Systems",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "x-auth-token",
+                "value": "{{token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"NextGen Systems\",\n  \"email\": \"contact@nextgen.com\",\n  \"phone\": \"(555) 456-7890\",\n  \"company\": \"NextGen Systems Corporation\",\n  \"address\": \"321 Innovation Drive, Austin, TX 78701\",\n  \"city\": \"Austin\",\n  \"state\": \"TX\",\n  \"zipcode\": \"78701\",\n  \"country\": \"USA\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:5000/api/customers",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "customers"]
+            }
+          }
+        },
+        {
+          "name": "Create Customer - Summit Enterprises",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "x-auth-token",
+                "value": "{{token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Summit Enterprises\",\n  \"email\": \"business@summit.com\",\n  \"phone\": \"(555) 567-8901\",\n  \"company\": \"Summit Enterprises Inc\",\n  \"address\": \"654 Corporate Plaza, Boston, MA 02101\",\n  \"city\": \"Boston\",\n  \"state\": \"MA\",\n  \"zipcode\": \"02101\",\n  \"country\": \"USA\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:5000/api/customers",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "customers"]
+            }
+          }
+        },
+        {
+          "name": "Create Customer - Prime Solutions",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "x-auth-token",
+                "value": "{{token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Prime Solutions\",\n  \"email\": \"support@prime.com\",\n  \"phone\": \"(555) 678-9012\",\n  \"company\": \"Prime Solutions Group\",\n  \"address\": \"987 Market Street, Seattle, WA 98101\",\n  \"city\": \"Seattle\",\n  \"state\": \"WA\",\n  \"zipcode\": \"98101\",\n  \"country\": \"USA\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:5000/api/customers",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "customers"]
+            }
+          }
+        },
+        {
+          "name": "Get Customer by ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "x-auth-token",
+                "value": "{{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:5000/api/customers/{{customerId}}",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "customers", "{{customerId}}"]
+            }
+          }
+        },
+        {
+          "name": "Update Customer",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "x-auth-token",
+                "value": "{{token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"TechCorp Solutions Updated\",\n  \"email\": \"updated@techcorp.com\",\n  \"phone\": \"(555) 999-8888\",\n  \"company\": \"TechCorp Solutions Inc\",\n  \"address\": \"123 Tech Avenue, San Francisco, CA 94105\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:5000/api/customers/{{customerId}}",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "customers", "{{customerId}}"]
+            }
+          }
+        },
+        {
+          "name": "Delete Customer",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "x-auth-token",
+                "value": "{{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:5000/api/customers/{{customerId}}",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "customers", "{{customerId}}"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Leads",
+      "item": [
+        {
+          "name": "Get All Leads",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "x-auth-token",
+                "value": "{{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:5000/api/leads",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "leads"]
+            }
+          }
+        },
+        {
+          "name": "Create Lead - Enterprise Deal",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code === 201) {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.environment.set(\"leadId\", jsonData._id);",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "x-auth-token",
+                "value": "{{token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"John Smith\",\n  \"email\": \"john.smith@enterprise.com\",\n  \"phone\": \"(555) 111-2222\",\n  \"company\": \"Enterprise Corp\",\n  \"title\": \"Chief Technology Officer\",\n  \"source\": \"referral\",\n  \"priority\": \"high\",\n  \"value\": 150000,\n  \"notes\": \"High-value enterprise prospect interested in our cloud solutions\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:5000/api/leads",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "leads"]
+            }
+          }
+        },
+        {
+          "name": "Create Lead - Mid-Market",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "x-auth-token",
+                "value": "{{token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Emily Davis\",\n  \"email\": \"emily@midmarket.io\",\n  \"phone\": \"(555) 222-3333\",\n  \"company\": \"MidMarket Innovations\",\n  \"title\": \"Operations Manager\",\n  \"source\": \"website\",\n  \"priority\": \"medium\",\n  \"value\": 75000,\n  \"notes\": \"Interested in our SaaS platform for team collaboration\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:5000/api/leads",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "leads"]
+            }
+          }
+        },
+        {
+          "name": "Create Lead - Startup",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "x-auth-token",
+                "value": "{{token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Alex Chen\",\n  \"email\": \"alex@startup.co\",\n  \"phone\": \"(555) 333-4444\",\n  \"company\": \"TechStartup Inc\",\n  \"title\": \"Founder & CEO\",\n  \"source\": \"referral\",\n  \"priority\": \"medium\",\n  \"value\": 45000,\n  \"notes\": \"Early-stage startup looking for affordable CRM solution\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:5000/api/leads",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "leads"]
+            }
+          }
+        },
+        {
+          "name": "Create Lead - Negotiation",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "x-auth-token",
+                "value": "{{token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Michael Brown\",\n  \"email\": \"mbrown@legacy.com\",\n  \"phone\": \"(555) 444-5555\",\n  \"company\": \"Legacy Systems LLC\",\n  \"title\": \"VP of Sales\",\n  \"source\": \"phone\",\n  \"priority\": \"high\",\n  \"value\": 200000,\n  \"notes\": \"Enterprise client in final negotiation stages for platform migration\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:5000/api/leads",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "leads"]
+            }
+          }
+        },
+        {
+          "name": "Create Lead - Proposal Stage",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "x-auth-token",
+                "value": "{{token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Lisa Anderson\",\n  \"email\": \"lisa@forward.biz\",\n  \"phone\": \"(555) 555-6666\",\n  \"company\": \"Forward Thinking Group\",\n  \"title\": \"Business Director\",\n  \"source\": \"other\",\n  \"priority\": \"high\",\n  \"value\": 125000,\n  \"notes\": \"Awaiting proposal review and budget approval from finance team\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:5000/api/leads",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "leads"]
+            }
+          }
+        },
+        {
+          "name": "Get Lead by ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "x-auth-token",
+                "value": "{{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:5000/api/leads/{{leadId}}",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "leads", "{{leadId}}"]
+            }
+          }
+        },
+        {
+          "name": "Update Lead Status",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "x-auth-token",
+                "value": "{{token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"won\",\n  \"value\": 150000\n}"
+            },
+            "url": {
+              "raw": "http://localhost:5000/api/leads/{{leadId}}",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "leads", "{{leadId}}"]
+            }
+          }
+        },
+        {
+          "name": "Delete Lead",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "x-auth-token",
+                "value": "{{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:5000/api/leads/{{leadId}}",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "leads", "{{leadId}}"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Tasks",
+      "item": [
+        {
+          "name": "Get All Tasks",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "x-auth-token",
+                "value": "{{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:5000/api/tasks",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "tasks"]
+            }
+          }
+        },
+        {
+          "name": "Create Task - Follow-up Call",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code === 201) {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.environment.set(\"taskId\", jsonData._id);",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "x-auth-token",
+                "value": "{{token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Follow-up Call with John Smith\",\n  \"description\": \"Call TechCorp to discuss their cloud migration timeline\",\n  \"dueDate\": \"2025-12-01\",\n  \"priority\": \"high\",\n  \"status\": \"pending\",\n  \"assignedTo\": \"sarah@crm.com\",\n  \"relatedTo\": \"Lead\",\n  \"notes\": \"Prepare demo slides before the call\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:5000/api/tasks",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "tasks"]
+            }
+          }
+        },
+        {
+          "name": "Create Task - Send Proposal",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "x-auth-token",
+                "value": "{{token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Send Customized Proposal\",\n  \"description\": \"Prepare and send customized proposal for Enterprise Client\",\n  \"dueDate\": \"2025-11-25\",\n  \"priority\": \"high\",\n  \"status\": \"in-progress\",\n  \"assignedTo\": \"sarah@crm.com\",\n  \"relatedTo\": \"Customer\",\n  \"notes\": \"Include pricing breakdown and implementation timeline\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:5000/api/tasks",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "tasks"]
+            }
+          }
+        },
+        {
+          "name": "Create Task - Contract Review",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "x-auth-token",
+                "value": "{{token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Contract Review and Legal Approval\",\n  \"description\": \"Get contract reviewed by legal team and obtain CEO signature\",\n  \"dueDate\": \"2025-11-30\",\n  \"priority\": \"critical\",\n  \"status\": \"pending\",\n  \"assignedTo\": \"mike@crm.com\",\n  \"relatedTo\": \"Customer\",\n  \"notes\": \"Rush legal review for $200K deal\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:5000/api/tasks",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "tasks"]
+            }
+          }
+        },
+        {
+          "name": "Create Task - Product Demo",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "x-auth-token",
+                "value": "{{token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Schedule Product Demo\",\n  \"description\": \"Demo our platform features to MidMarket Innovations team\",\n  \"dueDate\": \"2025-11-28\",\n  \"priority\": \"medium\",\n  \"status\": \"pending\",\n  \"assignedTo\": \"sarah@crm.com\",\n  \"relatedTo\": \"Lead\",\n  \"notes\": \"Screen share via Zoom, limit to 30 minutes, focus on integrations\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:5000/api/tasks",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "tasks"]
+            }
+          }
+        },
+        {
+          "name": "Create Task - Quarterly Review",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "x-auth-token",
+                "value": "{{token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Q4 Sales Performance Review\",\n  \"description\": \"Review sales pipeline and quarterly targets with team\",\n  \"dueDate\": \"2025-12-15\",\n  \"priority\": \"medium\",\n  \"status\": \"pending\",\n  \"assignedTo\": \"mike@crm.com\",\n  \"relatedTo\": \"Other\",\n  \"notes\": \"Prepare pipeline report and forecast analysis\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:5000/api/tasks",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "tasks"]
+            }
+          }
+        },
+        {
+          "name": "Get Task by ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "x-auth-token",
+                "value": "{{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:5000/api/tasks/{{taskId}}",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "tasks", "{{taskId}}"]
+            }
+          }
+        },
+        {
+          "name": "Update Task Status",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "x-auth-token",
+                "value": "{{token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"completed\",\n  \"completedAt\": \"2025-11-20T10:30:00Z\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:5000/api/tasks/{{taskId}}",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "tasks", "{{taskId}}"]
+            }
+          }
+        },
+        {
+          "name": "Delete Task",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "x-auth-token",
+                "value": "{{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:5000/api/tasks/{{taskId}}",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "tasks", "{{taskId}}"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Complaints",
+      "item": [
+        {
+          "name": "Get All Complaints",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "x-auth-token",
+                "value": "{{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:5000/api/complaints",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "complaints"]
+            }
+          }
+        },
+        {
+          "name": "Create Complaint - Service Outage",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code === 201) {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.environment.set(\"complaintId\", jsonData._id);",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "x-auth-token",
+                "value": "{{token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Service Outage - Platform Down\",\n  \"description\": \"CRM platform was unreachable for 45 minutes on Nov 20, 2025. This affected our team's ability to update customer records and caused missed follow-ups.\",\n  \"customerId\": \"TechCorp Solutions\",\n  \"priority\": \"critical\",\n  \"status\": \"open\",\n  \"category\": \"Technical Issue\",\n  \"attachments\": []\n}"
+            },
+            "url": {
+              "raw": "http://localhost:5000/api/complaints",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "complaints"]
+            }
+          }
+        },
+        {
+          "name": "Create Complaint - Data Loss",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "x-auth-token",
+                "value": "{{token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Data Loss - Customer Records Disappeared\",\n  \"description\": \"15 customer records that were created last week have mysteriously disappeared from the system. Urgent action needed to recover these records.\",\n  \"customerId\": \"Acme Corporation\",\n  \"priority\": \"critical\",\n  \"status\": \"open\",\n  \"category\": \"Data Issue\",\n  \"attachments\": []\n}"
+            },
+            "url": {
+              "raw": "http://localhost:5000/api/complaints",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "complaints"]
+            }
+          }
+        },
+        {
+          "name": "Create Complaint - Feature Bug",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "x-auth-token",
+                "value": "{{token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Export to CSV Not Working\",\n  \"description\": \"The export leads to CSV feature is showing an error when we try to download the file. Error message: 'File generation failed'. This is blocking our monthly reporting workflow.\",\n  \"customerId\": \"Global Industries\",\n  \"priority\": \"high\",\n  \"status\": \"in-progress\",\n  \"category\": \"Feature Bug\",\n  \"attachments\": []\n}"
+            },
+            "url": {
+              "raw": "http://localhost:5000/api/complaints",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "complaints"]
+            }
+          }
+        },
+        {
+          "name": "Create Complaint - Slow Performance",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "x-auth-token",
+                "value": "{{token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Application Performance Degradation\",\n  \"description\": \"The CRM dashboard is taking 10+ seconds to load. This wasn't the case before the recent update. It's significantly impacting our team's productivity.\",\n  \"customerId\": \"NextGen Systems\",\n  \"priority\": \"high\",\n  \"status\": \"open\",\n  \"category\": \"Performance Issue\",\n  \"attachments\": []\n}"
+            },
+            "url": {
+              "raw": "http://localhost:5000/api/complaints",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "complaints"]
+            }
+          }
+        },
+        {
+          "name": "Create Complaint - Integration Failure",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "x-auth-token",
+                "value": "{{token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Salesforce Integration Broken\",\n  \"description\": \"The Salesforce integration stopped syncing data yesterday. No new contacts are being imported and our manual workflow has doubled as a result.\",\n  \"customerId\": \"Summit Enterprises\",\n  \"priority\": \"medium\",\n  \"status\": \"open\",\n  \"category\": \"Integration Issue\",\n  \"attachments\": []\n}"
+            },
+            "url": {
+              "raw": "http://localhost:5000/api/complaints",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "complaints"]
+            }
+          }
+        },
+        {
+          "name": "Get Complaint by ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "x-auth-token",
+                "value": "{{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:5000/api/complaints/{{complaintId}}",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "complaints", "{{complaintId}}"]
+            }
+          }
+        },
+        {
+          "name": "Update Complaint Status",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "x-auth-token",
+                "value": "{{token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"resolved\",\n  \"priority\": \"critical\",\n  \"title\": \"Service Outage - RESOLVED\",\n  \"description\": \"Issue has been identified and fixed. All systems are now operational.\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:5000/api/complaints/{{complaintId}}",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "complaints", "{{complaintId}}"]
+            }
+          }
+        },
+        {
+          "name": "Delete Complaint",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "x-auth-token",
+                "value": "{{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:5000/api/complaints/{{complaintId}}",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "complaints", "{{complaintId}}"]
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "token",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "admin_token",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "customerId",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "leadId",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "taskId",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "complaintId",
+      "value": "",
+      "type": "string"
+    }
+  ]
+}

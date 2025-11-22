@@ -1,0 +1,19 @@
+{
+  "name": "crm-app",
+  "version": "1.0.0",
+  "description": "CRM Application with backend and frontend",
+"scripts": {
+    "dev": "npx concurrently \"cd backend && npm run dev\" \"cd frontend && npm run dev\""
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  },
+  "dependencies": {
+    "axios": "^1.13.2",
+    "bootstrap": "^5.3.8",
+    "formik": "^2.4.9",
+    "lodash-es": "^4.17.21",
+    "react-router-dom": "^7.9.6",
+    "yup": "^1.7.1"
+  }
+}
