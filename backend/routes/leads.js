@@ -61,7 +61,7 @@ router.post('/', [
       expectedCloseDate,
       notes,
       createdBy: req.user.id,
-      assignedTo: req.user.id,
+      assignedTo: (req.user.role === 'admin' && req.body.assignedTo) ? req.body.assignedTo : req.user.id,
     });
 
     const lead = await newLead.save();

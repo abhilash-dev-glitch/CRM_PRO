@@ -14,7 +14,7 @@ const ComplaintList = () => {
   const fetchComplaints = async () => {
     try {
       const token = localStorage.getItem('token');
-      const response = await axios.get('http://localhost:5000/api/complaints', {
+      const response = await axios.get('http://localhost:5001/api/complaints', {
         headers: { 'x-auth-token': token },
       });
       setComplaints(response.data);
@@ -27,7 +27,7 @@ const ComplaintList = () => {
     if (window.confirm('Are you sure you want to delete this complaint?')) {
       try {
         const token = localStorage.getItem('token');
-        await axios.delete(`http://localhost:5000/api/complaints/${id}`, {
+        await axios.delete(`http://localhost:5001/api/complaints/${id}`, {
           headers: { 'x-auth-token': token },
         });
         setComplaints(complaints.filter(complaint => complaint._id !== id));
@@ -57,12 +57,12 @@ const ComplaintList = () => {
     return colors[priority] || 'bg-gray-100 text-gray-800';
   };
 
-  const filteredComplaints = filter === 'all' 
-    ? complaints 
+  const filteredComplaints = filter === 'all'
+    ? complaints
     : complaints.filter(c => c.status === filter);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-red-50 to-slate-100 py-12 px-4">
+    <div className="min-h-screen bg-background py-12 px-4">
       <div className="max-w-5xl mx-auto">
         {/* Header Section */}
         <div className="mb-12">
@@ -71,7 +71,7 @@ const ComplaintList = () => {
               <h1 className="text-5xl font-black text-gray-800 mb-2">📝 Complaints</h1>
               <p className="text-gray-600 text-lg">Manage and track customer complaints</p>
             </div>
-            <Link to="/complaints/new" className="group bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white font-bold py-3 px-8 rounded-xl transition duration-200 transform hover:scale-105 shadow-lg inline-flex items-center gap-2">
+            <Link to="/complaints/new" className="group bg-gradient-to-r from-primary to-teal-600 hover:from-teal-600 hover:to-primary text-white font-bold py-3 px-8 rounded-xl transition duration-200 transform hover:scale-105 shadow-lg inline-flex items-center gap-2">
               <span className="text-xl">+</span> New Complaint
             </Link>
           </div>
@@ -85,7 +85,7 @@ const ComplaintList = () => {
         </div>
 
         {/* Status Filter */}
-        <div className="bg-white rounded-2xl shadow-lg p-6 mb-8">
+        <div className="bg-card rounded-2xl shadow-lg p-6 mb-8 border border-primary/10">
           <label className="block text-gray-700 font-bold mb-4">🔍 Filter by Status</label>
           <div className="flex gap-2 flex-wrap">
             {[
@@ -98,11 +98,10 @@ const ComplaintList = () => {
               <button
                 key={value}
                 onClick={() => setFilter(value)}
-                className={`px-4 py-2 rounded-lg font-semibold transition duration-200 transform hover:scale-105 flex items-center gap-2 ${
-                  filter === value
-                    ? 'bg-red-600 text-white shadow-lg'
-                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                }`}
+                className={`px-4 py-2 rounded-lg font-semibold transition duration-200 transform hover:scale-105 flex items-center gap-2 ${filter === value
+                  ? 'bg-primary text-white shadow-lg'
+                  : 'bg-gray-100 text-gray-700 hover:bg-primary/10'
+                  }`}
               >
                 <span>{emoji}</span>
                 {label}
@@ -113,11 +112,11 @@ const ComplaintList = () => {
 
         {/* Complaints Display */}
         {filteredComplaints.length === 0 ? (
-          <div className="bg-white rounded-2xl shadow-lg p-12 text-center">
+          <div className="bg-card rounded-2xl shadow-lg p-12 text-center border border-primary/10">
             <div className="text-6xl mb-4">📋</div>
             <h3 className="text-2xl font-bold text-gray-800 mb-2">No complaints found</h3>
             <p className="text-gray-600 mb-6">Try adjusting your filters or create a new complaint.</p>
-            <Link to="/complaints/new" className="inline-block bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-6 rounded-lg transition">
+            <Link to="/complaints/new" className="inline-block bg-primary hover:bg-teal-600 text-white font-bold py-2 px-6 rounded-lg transition">
               Create First Complaint
             </Link>
           </div>
@@ -125,19 +124,19 @@ const ComplaintList = () => {
           <div className="grid gap-6">
             {/* Stats Cards */}
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
-              <div className="bg-white rounded-xl p-4 shadow-md border-l-4 border-red-500">
+              <div className="bg-card rounded-xl p-4 shadow-md border-l-4 border-red-500">
                 <p className="text-gray-600 text-sm">Total</p>
                 <p className="text-3xl font-bold text-red-600">{filteredComplaints.length}</p>
               </div>
-              <div className="bg-white rounded-xl p-4 shadow-md border-l-4 border-yellow-500">
+              <div className="bg-card rounded-xl p-4 shadow-md border-l-4 border-yellow-500">
                 <p className="text-gray-600 text-sm">Open</p>
                 <p className="text-3xl font-bold text-yellow-600">{filteredComplaints.filter(c => c.status === 'open').length}</p>
               </div>
-              <div className="bg-white rounded-xl p-4 shadow-md border-l-4 border-blue-500">
+              <div className="bg-card rounded-xl p-4 shadow-md border-l-4 border-primary">
                 <p className="text-gray-600 text-sm">In Progress</p>
-                <p className="text-3xl font-bold text-blue-600">{filteredComplaints.filter(c => c.status === 'in-progress').length}</p>
+                <p className="text-3xl font-bold text-primary">{filteredComplaints.filter(c => c.status === 'in-progress').length}</p>
               </div>
-              <div className="bg-white rounded-xl p-4 shadow-md border-l-4 border-green-500">
+              <div className="bg-card rounded-xl p-4 shadow-md border-l-4 border-green-500">
                 <p className="text-gray-600 text-sm">Resolved</p>
                 <p className="text-3xl font-bold text-green-600">{filteredComplaints.filter(c => c.status === 'resolved').length}</p>
               </div>
@@ -146,11 +145,11 @@ const ComplaintList = () => {
             {/* Complaints Cards */}
             <div className="space-y-6">
               {filteredComplaints.map(complaint => (
-                <div key={complaint._id} className="group bg-white rounded-2xl shadow-lg hover:shadow-2xl transition duration-300 overflow-hidden border-l-4 border-red-500 hover:border-red-700">
+                <div key={complaint._id} className="group bg-card rounded-2xl shadow-lg hover:shadow-2xl transition duration-300 overflow-hidden border-l-4 border-primary hover:border-teal-600">
                   <div className="p-6">
                     <div className="flex items-start justify-between mb-4">
                       <div className="flex-1">
-                        <h3 className="text-xl font-bold text-gray-800 group-hover:text-red-600 transition mb-2">
+                        <h3 className="text-xl font-bold text-gray-800 group-hover:text-primary transition mb-2">
                           📌 {complaint.title}
                         </h3>
                         <p className="text-gray-600">{complaint.description}</p>

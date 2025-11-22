@@ -73,7 +73,7 @@ const LeadList = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-slate-100 py-12 px-4">
+    <div className="min-h-screen bg-background py-12 px-4">
       <div className="max-w-7xl mx-auto">
         {/* Header Section */}
         <div className="mb-12">
@@ -82,7 +82,7 @@ const LeadList = () => {
               <h1 className="text-5xl font-black text-gray-800 mb-2">📊 Leads Pipeline</h1>
               <p className="text-gray-600 text-lg">Manage and track all your leads</p>
             </div>
-            <Link to="/leads/new" className="group bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-bold py-3 px-8 rounded-xl transition duration-200 transform hover:scale-105 shadow-lg inline-flex items-center gap-2">
+            <Link to="/leads/new" className="group bg-gradient-to-r from-primary to-teal-600 hover:from-teal-600 hover:to-primary text-white font-bold py-3 px-8 rounded-xl transition duration-200 transform hover:scale-105 shadow-lg inline-flex items-center gap-2">
               <span className="text-xl">+</span> Add New Lead
             </Link>
           </div>
@@ -96,7 +96,7 @@ const LeadList = () => {
         </div>
 
         {/* Search and Filter Section */}
-        <div className="bg-white rounded-2xl shadow-lg p-8 mb-8">
+        <div className="bg-card rounded-2xl shadow-lg p-8 mb-8 border border-primary/10">
           <div className="mb-6">
             <label className="block text-gray-700 font-bold mb-3">🔍 Search Leads</label>
             <input
@@ -104,7 +104,7 @@ const LeadList = () => {
               placeholder="Search by name, email, or company..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full px-6 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:outline-none transition duration-200 text-lg"
+              className="w-full px-6 py-3 border-2 border-gray-200 rounded-xl focus:border-primary focus:outline-none transition duration-200 text-lg"
             />
           </div>
 
@@ -124,11 +124,10 @@ const LeadList = () => {
                   <button
                     key={status}
                     onClick={() => setStatusFilter(status)}
-                    className={`px-4 py-2 rounded-lg font-semibold transition duration-200 transform hover:scale-105 flex items-center gap-2 ${
-                      statusFilter === status
-                        ? 'bg-blue-600 text-white shadow-lg'
-                        : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                    }`}
+                    className={`px-4 py-2 rounded-lg font-semibold transition duration-200 transform hover:scale-105 flex items-center gap-2 ${statusFilter === status
+                        ? 'bg-primary text-white shadow-lg'
+                        : 'bg-gray-100 text-gray-700 hover:bg-primary/10'
+                      }`}
                   >
                     <span>{statusEmojis[status]}</span>
                     {status.charAt(0).toUpperCase() + status.slice(1)}
@@ -141,11 +140,11 @@ const LeadList = () => {
 
         {/* Leads Display */}
         {filteredLeads.length === 0 ? (
-          <div className="bg-white rounded-2xl shadow-lg p-12 text-center">
+          <div className="bg-card rounded-2xl shadow-lg p-12 text-center border border-primary/10">
             <div className="text-6xl mb-4">🔍</div>
             <h3 className="text-2xl font-bold text-gray-800 mb-2">No leads found</h3>
             <p className="text-gray-600 mb-6">Try adjusting your search filters or create a new lead to get started.</p>
-            <Link to="/leads/new" className="inline-block bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded-lg transition">
+            <Link to="/leads/new" className="inline-block bg-primary hover:bg-teal-600 text-white font-bold py-2 px-6 rounded-lg transition">
               Create First Lead
             </Link>
           </div>
@@ -153,29 +152,29 @@ const LeadList = () => {
           <div className="grid gap-6">
             {/* Stats Summary */}
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
-              <div className="bg-white rounded-xl p-4 shadow-md border-l-4 border-blue-500">
+              <div className="bg-card rounded-xl p-4 shadow-md border-l-4 border-primary">
                 <p className="text-gray-600 text-sm">Total Leads</p>
-                <p className="text-3xl font-bold text-blue-600">{filteredLeads.length}</p>
+                <p className="text-3xl font-bold text-primary">{filteredLeads.length}</p>
               </div>
-              <div className="bg-white rounded-xl p-4 shadow-md border-l-4 border-green-500">
+              <div className="bg-card rounded-xl p-4 shadow-md border-l-4 border-green-500">
                 <p className="text-gray-600 text-sm">Won Deals</p>
                 <p className="text-3xl font-bold text-green-600">{filteredLeads.filter(l => l.status === 'won').length}</p>
               </div>
-              <div className="bg-white rounded-xl p-4 shadow-md border-l-4 border-yellow-500">
+              <div className="bg-card rounded-xl p-4 shadow-md border-l-4 border-yellow-500">
                 <p className="text-gray-600 text-sm">In Progress</p>
                 <p className="text-3xl font-bold text-yellow-600">{filteredLeads.filter(l => l.status === 'in-progress').length}</p>
               </div>
-              <div className="bg-white rounded-xl p-4 shadow-md border-l-4 border-purple-500">
+              <div className="bg-card rounded-xl p-4 shadow-md border-l-4 border-accent">
                 <p className="text-gray-600 text-sm">Total Value</p>
-                <p className="text-3xl font-bold text-purple-600">${filteredLeads.reduce((sum, lead) => sum + (lead.value || 0), 0).toLocaleString()}</p>
+                <p className="text-3xl font-bold text-accent">${filteredLeads.reduce((sum, lead) => sum + (lead.value || 0), 0).toLocaleString()}</p>
               </div>
             </div>
 
             {/* Leads Table */}
-            <div className="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-200">
+            <div className="bg-card rounded-2xl shadow-lg overflow-hidden border-2 border-primary/20">
               <div className="overflow-x-auto">
                 <table className="w-full">
-                  <thead className="bg-gradient-to-r from-gray-800 to-gray-700 text-white">
+                  <thead className="bg-gradient-to-r from-secondary to-slate-800 text-white">
                     <tr>
                       <th className="px-6 py-4 text-left text-sm font-bold">Name</th>
                       <th className="px-6 py-4 text-left text-sm font-bold">Email</th>
@@ -188,13 +187,13 @@ const LeadList = () => {
                   </thead>
                   <tbody className="divide-y divide-gray-200">
                     {filteredLeads.map((lead, idx) => (
-                      <tr key={lead._id} className="hover:bg-blue-50 transition duration-200 group">
+                      <tr key={lead._id} className="hover:bg-primary/5 transition duration-200 group">
                         <td className="px-6 py-4">
                           <div className="flex items-center gap-3">
-                            <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center font-bold text-blue-600 group-hover:bg-blue-200 transition">
+                            <div className="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center font-bold text-primary group-hover:bg-primary/30 transition">
                               {lead.name.charAt(0)}
                             </div>
-                            <span className="font-semibold text-gray-800 group-hover:text-blue-600 transition">{lead.name}</span>
+                            <span className="font-semibold text-gray-800 group-hover:text-primary transition">{lead.name}</span>
                           </div>
                         </td>
                         <td className="px-6 py-4">
@@ -209,11 +208,10 @@ const LeadList = () => {
                           </span>
                         </td>
                         <td className="px-6 py-4">
-                          <span className={`px-3 py-1 rounded-lg text-sm font-semibold capitalize ${
-                            lead.priority === 'high' ? 'bg-red-100 text-red-700' :
-                            lead.priority === 'medium' ? 'bg-yellow-100 text-yellow-700' :
-                            'bg-green-100 text-green-700'
-                          }`}>
+                          <span className={`px-3 py-1 rounded-lg text-sm font-semibold capitalize ${lead.priority === 'high' ? 'bg-red-100 text-red-700' :
+                              lead.priority === 'medium' ? 'bg-yellow-100 text-yellow-700' :
+                                'bg-green-100 text-green-700'
+                            }`}>
                             {lead.priority}
                           </span>
                         </td>
@@ -224,7 +222,7 @@ const LeadList = () => {
                           <div className="flex gap-2 justify-center opacity-0 group-hover:opacity-100 transition duration-200">
                             <Link
                               to={`/leads/${lead._id}`}
-                              className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg text-sm transition duration-200"
+                              className="bg-primary hover:bg-teal-600 text-white font-semibold py-2 px-4 rounded-lg text-sm transition duration-200"
                             >
                               View
                             </Link>

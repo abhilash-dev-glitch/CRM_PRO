@@ -23,6 +23,7 @@ app.use('/api/activities', require('./routes/activities'));
 app.use('/api/notifications', require('./routes/notifications'));
 app.use('/api/documents', require('./routes/documents'));
 app.use('/api/users', require('./routes/users'));
+app.use('/api/mail', require('./routes/mail'));
 
 const PORT = process.env.PORT || 5001;
 

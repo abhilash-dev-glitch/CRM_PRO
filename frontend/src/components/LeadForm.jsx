@@ -3,6 +3,7 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
+import { useAuth } from '../context/AuthContext';
 
 const LeadForm = () => {
   const [lead, setLead] = useState(null);
@@ -10,6 +11,26 @@ const LeadForm = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const { id } = useParams();
+  const { user } = useAuth();
+  const [users, setUsers] = useState([]);
+
+  useEffect(() => {
+    if (user?.role === 'admin') {
+      fetchUsers();
+    }
+  }, [user]);
+
+  const fetchUsers = async () => {
+    try {
+      const token = localStorage.getItem('token');
+      const response = await axios.get('http://localhost:5001/api/users', {
+        headers: { 'x-auth-token': token },
+      });
+      setUsers(response.data);
+    } catch (err) {
+      console.error('Failed to fetch users');
+    }
+  };
 
   useEffect(() => {
     if (id) {
@@ -104,6 +125,20 @@ const LeadForm = () => {
               <ErrorMessage name="email" component="div" className="text-red-500 text-xs italic mt-1" />
             </div>
           </div>
+
+          {user?.role === 'admin' && (
+            <div className="mb-6">
+              <label htmlFor="assignedTo" className="block text-gray-700 text-sm font-bold mb-2">Assign To</label>
+              <Field as="select" name="assignedTo" className="shadow border rounded w-full py-2 px-3 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <option value="">Select User</option>
+                {users.map((u) => (
+                  <option key={u._id} value={u._id}>
+                    {u.name} ({u.email})
+                  </option>
+                ))}
+              </Field>
+            </div>
+          )}
 
           <div className="grid grid-cols-2 gap-4 mb-6">
             <div>

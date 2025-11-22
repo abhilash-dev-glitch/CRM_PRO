@@ -41,6 +41,8 @@ router.post('/register', [
     const payload = {
       user: {
         id: user.id,
+        name: user.name,
+        email: user.email,
         role: user.role,
       },
     };
@@ -81,11 +83,13 @@ router.post('/login', [
     }
 
     // Log user login with role
-    console.log(\`User logged in: \${user.email}, role: \${user.role}\`);
+    console.log(`User logged in: ${user.email}, role: ${user.role}`);
 
     const payload = {
       user: {
         id: user.id,
+        name: user.name,
+        email: user.email,
         role: user.role,
       },
     };

@@ -16,7 +16,10 @@ import LeadList from './components/LeadList';
 import LeadForm from './components/LeadForm';
 import TaskList from './components/TaskList';
 import AdminDashboard from './components/AdminDashboard';
+import AdminMail from './components/AdminMail';
+import UserList from './components/UserList';
 import Profile from './components/Profile';
+import Home from './components/Home';
 import './App.css';
 
 function App() {
@@ -27,7 +30,7 @@ function App() {
           <Routes>
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
-            
+
             {/* Old Dashboard routes */}
             <Route
               path="/dashboard"
@@ -85,7 +88,7 @@ function App() {
                 </ProtectedRoute>
               }
             />
-            
+
             {/* User/Salesperson Routes */}
             <Route
               path="/home"
@@ -135,7 +138,7 @@ function App() {
                 </ProtectedRoute>
               }
             />
-            
+
             {/* Admin Routes */}
             <Route
               path="/admin"
@@ -154,6 +157,38 @@ function App() {
               }
             />
             <Route
+              path="/admin/users"
+              element={
+                <ProtectedRoute requiredRole="admin">
+                  <UserList />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/admin/leads"
+              element={
+                <ProtectedRoute requiredRole="admin">
+                  <LeadList />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/admin/analytics"
+              element={
+                <ProtectedRoute requiredRole="admin">
+                  <AdminDashboard />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/admin/mail"
+              element={
+                <ProtectedRoute requiredRole="admin">
+                  <AdminMail />
+                </ProtectedRoute>
+              }
+            />
+            <Route
               path="/profile"
               element={
                 <ProtectedRoute>
@@ -161,8 +196,8 @@ function App() {
                 </ProtectedRoute>
               }
             />
-            {/* Default route - Landing Page */}
-            <Route path="/" element={<LandingPage />} />
+            {/* Default route - Smart redirect based on auth status */}
+            <Route path="/" element={<Home />} />
           </Routes>
         </Layout>
       </AuthProvider>
