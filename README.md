@@ -1,18 +1,19 @@
+
 # 🚀 SwiftCRM
 
 <div align="center">
   <p>A modern, responsive, and powerful Customer Relationship Management solution.</p>
 
   <a href="https://swiftcrm-o164.onrender.com/">
-    <img src="https://img.shields.io/badge/Demo-Live%20Demo-green?style=for-the-badge" />
+    <img src="https://img.shields.io/badge/🚀 Live Demo-Visit-green?style=for-the-badge" />
   </a>
 
   <a href="https://drive.google.com/file/d/1OTH1ShztS-oL1ss1mKVTjqAGdkdT_XgA/view?usp=sharing">
-    <img src="https://img.shields.io/badge/Video-Demo-blue?style=for-the-badge" />
+    <img src="https://img.shields.io/badge/🎬 Video Demo-Watch-blue?style=for-the-badge" />
   </a>
 
   <a href="#">
-    <img src="https://img.shields.io/badge/License-MIT-blue?style=for-the-badge" />
+    <img src="https://img.shields.io/badge/📄 License-MIT-blue?style=for-the-badge" />
   </a>
 
 <br /><br />
@@ -145,6 +146,16 @@ The application is deployed on **Render**:
 
 ---
 
+## 🎥 Video Demo (Embedded)
+
+<div align="center">
+  <a href="https://drive.google.com/file/d/1OTH1ShztS-oL1ss1mKVTjqAGdkdT_XgA/view?usp=sharing">
+    <img src="https://img.shields.io/badge/▶️ Click_to_Watch_Demo-blue?style=for-the-badge" />
+  </a>
+</div>
+
+---
+
 ## 📝 License
 
 Licensed under the **MIT License**.
@@ -168,3 +179,4 @@ Feel free to open issues or submit pull requests.
 <div align="center">
   Made with ❤️ by <strong>Abhilash Chandra</strong>
 </div>
+
