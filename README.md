@@ -1,8 +1,9 @@
 <div align="center">
   <h1>🚀 SwiftCRM</h1>
   <p>A modern, responsive, and powerful Customer Relationship Management solution</p>
-  
+
   [![Live Demo](https://img.shields.io/badge/Demo-Live%20Demo-green?style=for-the-badge)](https://swiftcrm-o164.onrender.com/)
+  **[![Demo Video]([https://img.shields.io/badge/Video-Watch%20Demo-red?style=for-the-badge](https://drive.google.com/file/d/1OTH1ShztS-oL1ss1mKVTjqAGdkdT_XgA/view?usp=drive_link))](YOUR_DEMO_VIDEO_YOUTUBE_LINK)**
   [![License](https://img.shields.io/badge/License-MIT-blue?style=for-the-badge)](LICENSE)
 
   <img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" alt="React" />
@@ -59,41 +60,41 @@
 ### Installation
 
 1. **Clone the repository**
-   ```bash
-   git clone https://github.com/abhilash-dev-glitch/CRM_PRO.git
-   cd CRM_PRO
-   ```
+    ```bash
+    git clone [https://github.com/abhilash-dev-glitch/CRM_PRO.git](https://github.com/abhilash-dev-glitch/CRM_PRO.git)
+    cd CRM_PRO
+    ```
 
 2. **Install dependencies**
-   ```bash
-   # Install root dependencies
-   npm install
-   
-   # Install backend dependencies
-   cd backend
-   npm install
-   
-   # Install frontend dependencies
-   cd ../frontend
-   npm install
-   ```
+    ```bash
+    # Install root dependencies
+    npm install
+    
+    # Install backend dependencies
+    cd backend
+    npm install
+    
+    # Install frontend dependencies
+    cd ../frontend
+    npm install
+    ```
 
 3. **Environment Setup**
-   - Create a `.env` file in the `backend` directory:
-     ```
-     MONGODB_URI=your_mongodb_connection_string
-     JWT_SECRET=your_jwt_secret
-     PORT=5000
-     NODE_ENV=development
-     ```
+    - Create a `.env` file in the `backend` directory:
+      ```
+      MONGODB_URI=your_mongodb_connection_string
+      JWT_SECRET=your_jwt_secret
+      PORT=5000
+      NODE_ENV=development
+      ```
 
 4. **Running the Application**
-   ```bash
-   # Start both frontend and backend in development mode
-   npm run dev
-   ```
-   
-   The application will be available at `http://localhost:3000`
+    ```bash
+    # Start both frontend and backend in development mode
+    npm run dev
+    ```
+    
+    The application will be available at `http://localhost:3000`
 
 ## 📦 Deployment
 
