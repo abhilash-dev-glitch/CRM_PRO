@@ -3,7 +3,7 @@
   <p>A modern, responsive, and powerful Customer Relationship Management solution</p>
 
   [![Live Demo](https://img.shields.io/badge/Demo-Live%20Demo-green?style=for-the-badge)](https://swiftcrm-o164.onrender.com/)
-  **[![Demo Video]([https://img.shields.io/badge/Video-Watch%20Demo-red?style=for-the-badge](https://drive.google.com/file/d/1OTH1ShztS-oL1ss1mKVTjqAGdkdT_XgA/view?usp=drive_link))](YOUR_DEMO_VIDEO_YOUTUBE_LINK)**
+  **[![Demo Video](https://drive.google.com/file/d/1OTH1ShztS-oL1ss1mKVTjqAGdkdT_XgA/view?usp=drive_link))](YOUR_DEMO_VIDEO_YOUTUBE_LINK)**
   [![License](https://img.shields.io/badge/License-MIT-blue?style=for-the-badge)](LICENSE)
 
   <img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" alt="React" />
